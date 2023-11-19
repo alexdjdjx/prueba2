@@ -4,53 +4,52 @@ using UnityEngine;
 
 public class lightSwitch : MonoBehaviour
 {
-    public GameObject inttext, light;
-    public bool toggle = true, interactable;
-    public Renderer lightBulb;
+    public GameObject texto, light;
+    public bool b_toggle = true, b_interactuable;
+    public Renderer luzArriba;
     public Material offlight, onlight;
-    public AudioSource lightSwitchSound;
-    public Animator switchAnim;
+    public Animator anim_switch;
 
 void Start(){
-    inttext.SetActive(false);
+    texto.SetActive(false);
 }
     void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("MainCamera"))
         {
-            inttext.SetActive(true);
-            interactable = true;
+            texto.SetActive(true);
+            b_interactuable = true;
         }
     }
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("MainCamera"))
         {
-            inttext.SetActive(false);
-            interactable = false;
+            texto.SetActive(false);
+            b_interactuable = false;
         }
     }
     void Update()
     {
-        if(interactable == true)
+        if(b_interactuable == true)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                toggle = !toggle;
-                //lightSwitchSound.Play();
-                switchAnim.ResetTrigger("press");
-                switchAnim.SetTrigger("press");
+                b_toggle = !b_toggle;
+          
+                anim_switch.ResetTrigger("press");
+                anim_switch.SetTrigger("press");
             }
         }
-        if(toggle == false)
+        if(b_toggle == false)
         {
             light.SetActive(false);
-            lightBulb.material = offlight;
+            luzArriba.material = offlight;
         }
-        if (toggle == true)
+        if (b_toggle == true)
         {
             light.SetActive(true);
-            lightBulb.material = onlight;
+            luzArriba.material = onlight;
         }
     }
 }

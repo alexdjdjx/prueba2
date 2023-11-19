@@ -6,52 +6,52 @@ using UnityEngine;
 
 public class SC_FPSController : MonoBehaviour
 {
-    public float velocidadCaminar = 7.5f;
-    public float velocidadCorrer = 11.5f;
+    public float fl_velocidadCaminar = 5f;
+    public float fl_velocidadCorrer = 8f;
     public Camera camaraJugador;
-    public float sensibilidadRaton = 2.0f;
+    public float fl_sensibilidadRaton = 2.0f;
 
     CharacterController controladorPersonaje;
-    Vector3 direccionMovimiento = Vector3.zero;
-    float rotacionX = 0;
+    Vector3 v3_direccionMovimiento = Vector3.zero;
+    float fl_rotacionX = 0;
 
     [HideInInspector]
-    public bool puedeMoverse = true;
+    public bool b_puedeMoverse = true;
 
     void Start()
     {
         controladorPersonaje = GetComponent<CharacterController>();
 
-        // Bloquear cursor
+       
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     void Update()
     {
-        Vector3 adelante = transform.TransformDirection(Vector3.forward) * Input.GetAxis("Vertical");
-        Vector3 derecha = transform.TransformDirection(Vector3.right) * Input.GetAxis("Horizontal");
+        Vector3 v3_adelante = transform.TransformDirection(Vector3.forward) * Input.GetAxis("Vertical");
+        Vector3 v3_derecha = transform.TransformDirection(Vector3.right) * Input.GetAxis("Horizontal");
 
-        // Presiona Shift para correr
-        bool estaCorriendo = Input.GetKey(KeyCode.LeftShift);
-        float velocidadActualX = puedeMoverse ? (estaCorriendo ? velocidadCorrer : velocidadCaminar) : 0;
+       
+        bool b_estaCorriendo = Input.GetKey(KeyCode.LeftShift);
+        float fl_velocidadActualX = b_puedeMoverse ? (b_estaCorriendo ? fl_velocidadCorrer : fl_velocidadCaminar) : 0;
 
-        direccionMovimiento = (adelante + derecha).normalized * velocidadActualX;
+        v3_direccionMovimiento = (v3_adelante + v3_derecha).normalized * fl_velocidadActualX;
 
-        // Mover el controlador
-        controladorPersonaje.Move(direccionMovimiento * Time.deltaTime);
+     
+        controladorPersonaje.Move(v3_direccionMovimiento * Time.deltaTime);
 
-        // Rotación del jugador y la cámara
-        if (puedeMoverse)
+        
+        if (b_puedeMoverse)
         {
-            rotacionX += -Input.GetAxis("Mouse Y") * sensibilidadRaton;
-            rotacionX = Mathf.Clamp(rotacionX, -45f, 45f);
-            camaraJugador.transform.localRotation = Quaternion.Euler(rotacionX, 0, 0);
+            fl_rotacionX += -Input.GetAxis("Mouse Y") * fl_sensibilidadRaton;
+            fl_rotacionX = Mathf.Clamp(fl_rotacionX, -45f, 45f);
+            camaraJugador.transform.localRotation = Quaternion.Euler(fl_rotacionX, 0, 0);
 
           
         }
-          float rotacionY = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensibilidadRaton;
-        transform.localEulerAngles = new Vector3(0, rotacionY, 0);
-        controladorPersonaje.Move(direccionMovimiento * Time.deltaTime);
+        float fl_rotacionY = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * fl_sensibilidadRaton;
+        transform.localEulerAngles = new Vector3(0, fl_rotacionY, 0);
+        controladorPersonaje.Move(v3_direccionMovimiento * Time.deltaTime);
     }
 }
