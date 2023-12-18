@@ -356,6 +356,7 @@
 "Assets/Scripts/Encendedor.cs"
 "Assets/Scripts/Inicio.cs"
 "Assets/Scripts/Linterna.cs"
+"Assets/Scripts/Menu.cs"
 "Assets/Scripts/Movimiento_Personaje.cs"
 "Assets/Scripts/Puerta.cs"
 "Assets/Scripts/Screamer.cs"
